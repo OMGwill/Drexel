@@ -33,7 +33,7 @@ public class MoonPhase{
 		int age = getMoonAge(d);
 
 		System.out.println("Hello! Today is " + formatDate(d));
-		System.out.println("The moon age since last New Moon is: " + age);
+		System.out.println("The moon age since last New Moon is: " + age +" days");
 		System.out.println("The moon's phase is: " + getMoonPhase(age));
 	}
 
@@ -89,7 +89,7 @@ public class MoonPhase{
 	//add method to prompt user to input a date
 	//add method to return ascii art for each phase
 	//add method to return sun sign - param(given date)
-	//**if theres time** add method to calculate mo0n sign - param (given date and time)
+	//**if theres time** add method to calculate moon sign - param (given date and time)
 
 	//******END METHODS**************
 
@@ -108,22 +108,32 @@ public class MoonPhase{
 		System.out.println("<<<<<<<<<<<<<<<<<<<<<<<TEST CASES>>>>>>>>>>>>>>>>>>>>");
 
 		theMoonAge=getMoonAge(currDate);
-		theMoonPhase=getMoonPhase(theMoonAge);	
+		theMoonPhase=getMoonPhase(theMoonAge);
+		System.out.println("Current time is : "+formatDate(currDate));
+		System.out.println("current moon age: " + theMoonAge + "\nPhase: " + theMoonPhase);
+		System.out.println();
+
+		theMoonAge=getMoonAge(currDate.plusHours(5));
+		theMoonPhase=getMoonPhase(theMoonAge);
+		System.out.println("Current time is : "+formatDate(currDate.plusHours(5)));	
 		System.out.println("current moon age: " + theMoonAge + "\nPhase: " + theMoonPhase);
 		System.out.println();
 
 		theMoonAge=getMoonAge(testDateFuture);
 		theMoonPhase=getMoonPhase(theMoonAge);
+		System.out.println("Current time is : "+formatDate(testDateFuture));
 		System.out.println("May 4 2020 age: " + theMoonAge + "\nPhase: " + theMoonPhase);
 		System.out.println();
 
 		theMoonAge=getMoonAge(testDatePast);
 		theMoonPhase=getMoonPhase(theMoonAge);
+		System.out.println("Current time is : "+formatDate(testDatePast));
 		System.out.println("May 4 2018 age: " + theMoonAge + "\nPhase: " + theMoonPhase);
 		System.out.println();
 		
 		theMoonAge=getMoonAge(myBirthday);
 		theMoonPhase=getMoonPhase(theMoonAge);
+		System.out.println("Current time is : "+formatDate(myBirthday));
 		System.out.println("my birthday age: " + theMoonAge + "\nPhase: " + theMoonPhase);
 		System.out.println();
 
@@ -157,6 +167,12 @@ public class MoonPhase{
 		//print welcome message
 		currDate = LocalDateTime.now();
 		printWelcome(currDate);
+
+		//todo:
+		//prompt user to input a date
+		//print ascii art for each phase
+		//return sun (zodiac) sign - param(given date)
+		//**if theres time** add method to calculate moon sign - param (given date and time) - research required
 
 	}//end main
 }//end class
