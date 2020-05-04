@@ -1,3 +1,6 @@
+//Will Luttmann
+//cs570 ClassMeeting4
+
 /*
 //Class Exercise Program (only one this week, so make it good!)
 
