@@ -46,13 +46,13 @@ public class MoonPhase{
 	*
 	*/
 	public static void printWelcome(LocalDateTime d){
-		int age = getMoonAge(d);
+		double age = getMoonAge(d);
 
-		System.out.println("*************************************************");
-		System.out.println("* Hello! Today is " + formatDate(d) + "\t\t*");
-		System.out.println("* The moon age since last New Moon is: " + age +" days\t*");
-		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t*");
-		System.out.println("*************************************************");
+		System.out.println("*********************************************************");
+		System.out.println("* Hello! Today is " + formatDate(d) + "\t\t\t*");
+		System.out.printf("* The moon age since last New Moon is: %.2f days\t*\n",age);
+		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t\t*");
+		System.out.println("*********************************************************");
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class MoonPhase{
 
 		Duration dateDiff = Duration.between(LocalDateTime.now(),d);
 		double daysDiff = dateDiff.toHours()/24.0;
-		int moonAge = getMoonAge(d);
+		int moonAge = (int)Math.round(getMoonAge(d));
 
 		if(moonAge==15){
 			return daysDiff;
@@ -87,7 +87,7 @@ public class MoonPhase{
 
 		Duration dateDiff = Duration.between(LocalDateTime.now(),d);
 		double daysDiff = dateDiff.toHours()/24.0;
-		int moonAge = getMoonAge(d);
+		int moonAge = (int)Math.round(getMoonAge(d));
 
 		if(moonAge==0){
 			return daysDiff;
@@ -96,6 +96,7 @@ public class MoonPhase{
 			return daysUntilNextNewMoon(d.plusHours(1));
 			
 		}
+
 
 	}
 
@@ -109,7 +110,7 @@ public class MoonPhase{
 
 		Duration dateDiff = Duration.between(LocalDateTime.now(),d);
 		double daysDiff = dateDiff.toHours()/24.0;
-		int moonAge = getMoonAge(d);
+		int moonAge = (int)Math.round(getMoonAge(d));
 
 		if(moonAge==7){
 			return daysDiff;
@@ -130,7 +131,7 @@ public class MoonPhase{
 
 		Duration dateDiff = Duration.between(LocalDateTime.now(),d);
 		double daysDiff = dateDiff.toHours()/24.0;
-		int moonAge = getMoonAge(d);
+		int moonAge = (int)Math.round(getMoonAge(d));
 
 		if(moonAge==22){
 			return daysDiff;
@@ -148,14 +149,14 @@ public class MoonPhase{
 	* @return integer of moon's age past/present/future dates
 	*
 	*/
-	public static int getMoonAge (LocalDateTime d){
+	public static double getMoonAge (LocalDateTime d){
 		Duration dateDiff = Duration.between(dateSeed,d);
-		long daysDiff = dateDiff.toDays(); 
+		double daysDiff = dateDiff.toHours()/24.0;
 
 		if(daysDiff >=0)
-			return (int)(daysDiff % lunarCycle);
+			return (daysDiff % lunarCycle);
 		else
-			return (int)(lunarCycle + (daysDiff % lunarCycle));
+			return (lunarCycle + (daysDiff % lunarCycle));
 	}
 
 	//outputs moonphase according to age
@@ -165,8 +166,9 @@ public class MoonPhase{
 	* @return string version of PHASE enum
 	*
 	*/
-	public static String getMoonPhase(int moonAge){
-		switch(moonAge){
+	public static String getMoonPhase(double moonAge){
+		int ageInDays = (int)Math.round(moonAge);
+		switch(ageInDays){
 			case 0: return PHASE.NEW_MOON.toString();
 			case 1: 
 			case 2: 
@@ -216,7 +218,7 @@ public class MoonPhase{
 		// LocalDateTime testDateFuture = LocalDateTime.parse("2020-05-04 15:04:00",dateFormat);
 		// LocalDateTime testDatePast = LocalDateTime.parse("2018-05-04 15:04:00",dateFormat);
 		// LocalDateTime myBirthday = LocalDateTime.parse("1990-11-05 06:28:00",dateFormat);
-		int theMoonAge;
+		double theMoonAge;
 		String theMoonPhase;
 		String continueFlag = "y";
 		boolean isValidInput = false;
@@ -224,7 +226,7 @@ public class MoonPhase{
 		double [] nextPhaseDays = {daysUntilNextNewMoon(currDate),daysUntilNextFirstQuarterMoon(currDate),daysUntilNextFullMoon(currDate),daysUntilNextThirdQuarterMoon(currDate)};
 
 		String userInput;
-		int userMoonAge;
+		double userMoonAge;
 		String userMoonPhase;
 
 		System.out.println();
@@ -329,8 +331,8 @@ public class MoonPhase{
 			userMoonAge = getMoonAge(userInputFormatted);
 			userMoonPhase = getMoonPhase(userMoonAge);
 
-			System.out.println("Moon phase at " + userInput + " is " + userMoonPhase + ", " + userMoonAge + " days since last new moon.");
-
+			System.out.print("Moon phase at " + userInput + " is " + userMoonPhase + ", ");
+			System.out.printf("%.2f days since last new moon.",userMoonAge);
 			System.out.println();
 			System.out.println();
 
