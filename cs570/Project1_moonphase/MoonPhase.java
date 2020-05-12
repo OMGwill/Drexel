@@ -17,7 +17,11 @@ public class MoonPhase{
 	private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	//seed for know new moon date/time from https://www.space.com/18880-moon-phases.html
-	private static final LocalDateTime dateSeed = LocalDateTime.parse("2020-01-24 16:42:00", dateFormat);
+	//private static final LocalDateTime dateSeed = LocalDateTime.parse("2020-01-24 16:42:00", dateFormat);
+
+	//seed for know new moon date/time from /https://www.almanac.com/astronomy/moon/calendar/zipcode/19382/2020-01
+	private static final LocalDateTime dateSeed = LocalDateTime.parse("2020-01-24 16:44:00", dateFormat);
+
 
 	//from https://minkukel.com/en/various/calculating-moon-phase/
 	private static final double lunarCycle = 29.53058770576;
@@ -52,6 +56,7 @@ public class MoonPhase{
 		System.out.println("* Hello! Today is " + formatDate(d) + "\t\t\t*");
 		System.out.printf("* The moon age since last New Moon is: %.2f days\t*\n",age);
 		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t\t*");
+		System.out.println("* The sun is in: " + getSunSign(d)+ "\t\t\t\t\t*");
 		System.out.println("*********************************************************");
 	}
 
@@ -201,6 +206,58 @@ public class MoonPhase{
 			case 29: return PHASE.WANING_CRESCENT.toString();
 			default: return PHASE.UNKOWN.toString();
 		} 
+
+	}
+
+
+	public static String getSunSign(LocalDateTime d){
+
+		DateTimeFormatter monthDay = DateTimeFormatter.ofPattern("MM-dd");
+		String x = d.format(monthDay);
+		String sign = "-1";
+
+		if(x.compareTo("03-21")>=0 && x.compareTo("04-19")<=0){
+			sign = "Aries";
+		}
+		if(x.compareTo("04-20")>=0 && x.compareTo("05-20")<=0){
+			sign = "Taurus";
+		}
+		if(x.compareTo("05-21")>=0 && x.compareTo("06-21")<=0){
+			sign = "Gemini";
+		}
+		if(x.compareTo("06-22")>=0 && x.compareTo("07-22")<=0){
+			sign = "Cancer";
+		}
+		if(x.compareTo("07-23")>=0 && x.compareTo("08-22")<=0){
+			sign = "Leo";
+		}
+		if(x.compareTo("08-23")>=0 && x.compareTo("09-22")<=0){
+			sign = "Virgo";
+		}
+		if(x.compareTo("09-23")>=0 && x.compareTo("10-23")<=0){
+			sign = "Libra";
+		}
+		if(x.compareTo("10-24")>=0 && x.compareTo("11-22")<=0){
+			sign = "Scorpio";
+		}
+		if(x.compareTo("11-23")>=0 && x.compareTo("12-21")<=0){
+			sign = "Sagittarius";
+		}
+		if(x.compareTo("12-22")>=0 && x.compareTo("12-31")<=0){
+			sign = "Capricorn";
+		}
+		if(x.compareTo("01-01")>=0 && x.compareTo("01-19")<=0){
+			sign = "Capricorn";
+		}
+		if(x.compareTo("01-20")>=0 && x.compareTo("02-18")<=0){
+			sign = "Aquarius";
+		}
+		if(x.compareTo("02-19")>=0 && x.compareTo("03-20")<=0){
+			sign = "Pisces";
+		}
+
+
+		return sign;
 	}
 
 	//todo:
@@ -217,13 +274,14 @@ public class MoonPhase{
 		LocalDateTime currDate = LocalDateTime.now();
 		// LocalDateTime testDateFuture = LocalDateTime.parse("2020-05-04 15:04:00",dateFormat);
 		// LocalDateTime testDatePast = LocalDateTime.parse("2018-05-04 15:04:00",dateFormat);
-		// LocalDateTime myBirthday = LocalDateTime.parse("1990-11-05 06:28:00",dateFormat);
+		 LocalDateTime myBirthday = LocalDateTime.parse("1990-11-05 06:28:00",dateFormat);
 		double theMoonAge;
 		String theMoonPhase;
 		String continueFlag = "y";
 		boolean isValidInput = false;
 		String [] nextPhaseNames = {"new moon","first quarter","full moon","third quarter"};
 		double [] nextPhaseDays = {daysUntilNextNewMoon(currDate),daysUntilNextFirstQuarterMoon(currDate),daysUntilNextFullMoon(currDate),daysUntilNextThirdQuarterMoon(currDate)};
+		LocalDateTime [] nextPhaseDate = {currDate.plusHours(Math.round(nextPhaseDays[0]*24)),currDate.plusHours(Math.round(nextPhaseDays[1]*24)),currDate.plusHours(Math.round(nextPhaseDays[2]*24)),currDate.plusHours(Math.round(nextPhaseDays[3]*24))};
 
 		String userInput;
 		double userMoonAge;
@@ -299,16 +357,17 @@ public class MoonPhase{
 		System.out.println();
 		System.out.println();
 
-		System.out.println("*****************************************");
+		System.out.println("*****************************************************************");
 		for(int i = 0; i < nextPhaseNames.length;i++){
-			System.out.printf("* %.2f days until next %s \t*",nextPhaseDays[i], nextPhaseNames[i]);
-			System.out.println();
+			System.out.printf("* %.2f\tdays until next %s",nextPhaseDays[i], nextPhaseNames[i]);
+			System.out.println(" on " + formatDate(nextPhaseDate[i])+" \t*");
 		}
-		System.out.println("*****************************************");
+		System.out.println("*****************************************************************");
 		System.out.println();
 		System.out.println();
 		
 		do{
+			isValidInput = false;
 			System.out.print("Enter a timestamp to find the moon's phase: ");
 			userInput = scnr.nextLine();
 			System.out.println();
@@ -332,7 +391,9 @@ public class MoonPhase{
 			userMoonPhase = getMoonPhase(userMoonAge);
 
 			System.out.print("Moon phase at " + userInput + " is " + userMoonPhase + ", ");
-			System.out.printf("%.2f days since last new moon.",userMoonAge);
+			System.out.printf("%.2f days since last new moon.\n",userMoonAge);
+			System.out.println("The sun is in: " + getSunSign(userInputFormatted));
+			System.out.println();
 			System.out.println();
 			System.out.println();
 
@@ -345,6 +406,18 @@ public class MoonPhase{
 			}
 
 		} while (!continueFlag.equalsIgnoreCase("N"));
+
+		// String sunSign = getSunSign(currDate);
+
+		// System.out.println(sunSign);
+		// System.out.println(getSunSign(myBirthday));
+		
+		// for(int i=0; i < 12;i++){
+		// 	System.out.print(currDate + " ");
+		// 	sunSign = getSunSign(currDate);
+		// 	System.out.println(sunSign);
+		// 	currDate = currDate.plusMonths(1);
+		// }
 
 		//todo:
 		//print ascii art for each phase
