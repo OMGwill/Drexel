@@ -26,6 +26,13 @@ public class MoonPhase{
 	//from https://minkukel.com/en/various/calculating-moon-phase/
 	private static final double lunarCycle = 29.53058770576;
 
+
+	//from https://en.wikipedia.org/wiki/Moon
+	private static final double moonRevolution = 655.719864; //27.321661 days * 24h
+
+	//from https://www.moontracks.com/lunar_ingress.html
+	private static final LocalDateTime moonSignSeed = LocalDateTime.parse("2020-04-02 18:26:00", dateFormat);
+
 	//all possible phases of moon
 	public static enum PHASE{
 		NEW_MOON,WAXING_CRESCENT,FIRST_QUARTER,WAXING_GIBBOUS,FULL_MOON,WANING_GIBBOUS,THIRD_QUARTER,WANING_CRESCENT,UNKOWN;
@@ -57,6 +64,7 @@ public class MoonPhase{
 		System.out.printf("* The moon age since last New Moon is: %.2f days\t*\n",age);
 		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t\t*");
 		System.out.println("* The sun is in: " + getSunSign(d)+ "\t\t\t\t\t*");
+		System.out.println("* The moon is in: " + getMoonSign(d)+ "\t\t\t\t*");
 		System.out.println("*********************************************************");
 	}
 
@@ -260,6 +268,50 @@ public class MoonPhase{
 		return sign;
 	}
 
+	public static String getMoonSign(LocalDateTime d){
+		Duration dateDiff = Duration.between(moonSignSeed,d);
+		double hourDiff = dateDiff.toHours();
+		double position = -1;
+		String sign = "-1";
+
+		if(hourDiff >=0)
+			position = (hourDiff % moonRevolution);
+		else
+			position = (moonRevolution + (hourDiff % moonRevolution));
+
+
+
+		if(position >= 0 && position <= 54.643322)
+			sign = "Leo";
+		if(position >= 54.643323 && position <= 109.286644)
+			sign = "Virgo";
+		if(position >= 109.28665 && position <= 163.929966)
+			sign = "Libra";
+		if(position >= 163.929967 && position <= 218.573288)
+			sign = "Scorpio";
+		if(position >= 218.573289 && position <= 273.21661)
+			sign = "Sagittarius";
+		if(position >= 273.21662 && position <= 327.859932)
+			sign = "Capricorn";
+		if(position >= 327.859933 && position <= 382.503254)
+			sign = "Aquarius";
+		if(position >= 382.503255 && position <= 437.146576)
+			sign = "Pisces";
+		if(position >= 437.146577 && position <= 491.789898)
+			sign = "Aries";
+		if(position >= 491.789899 && position <= 546.43322)
+			sign = "Taurus";
+		if(position >= 546.43323 && position <= 601.076542)
+			sign = "Gemini";
+		if(position >= 601.076543 && position <= 655.719864)
+			sign = "Cancer";
+
+
+
+
+		return sign;
+	}
+
 	//todo:
 	//add method to return ascii art for each phase
 	//add method to return sun sign - param(given date)
@@ -393,6 +445,7 @@ public class MoonPhase{
 			System.out.print("Moon phase at " + userInput + " is " + userMoonPhase + ", ");
 			System.out.printf("%.2f days since last new moon.\n",userMoonAge);
 			System.out.println("The sun is in: " + getSunSign(userInputFormatted));
+			System.out.println("The moon is in: " + getMoonSign(userInputFormatted));
 			System.out.println();
 			System.out.println();
 			System.out.println();
@@ -406,6 +459,21 @@ public class MoonPhase{
 			}
 
 		} while (!continueFlag.equalsIgnoreCase("N"));
+
+
+
+
+
+		// System.out.println(sunSign);
+		// System.out.println(getSunSign(myBirthday));
+		
+		// for(int i=0; i < 12;i++){
+		// 	System.out.print(currDate + " ");
+		// 	sunSign = getSunSign(currDate);
+		// 	System.out.println(sunSign);
+		// 	currDate = currDate.plusMonths(1);
+		// }
+
 
 		// String sunSign = getSunSign(currDate);
 
