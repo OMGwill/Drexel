@@ -32,10 +32,10 @@ public class MoonPhase{
 	private static final double moonRevolution = 655.719864; //27.321661 days * 24h = 655.719864 hours for 1 full orbit revolution
 
 
-	//all possible phases of moon
-	public static enum PHASE{
-		NEW_MOON,WAXING_CRESCENT,FIRST_QUARTER,WAXING_GIBBOUS,FULL_MOON,WANING_GIBBOUS,THIRD_QUARTER,WANING_CRESCENT,UNKOWN;
-	}
+	// //all possible phases of moon
+	// public static enum PHASE{
+	// 	NEW_MOON,WAXING_CRESCENT,FIRST_QUARTER,WAXING_GIBBOUS,FULL_MOON,WANING_GIBBOUS,THIRD_QUARTER,WANING_CRESCENT,UNKOWN;
+	// }
 	//********END GLOBAL*************
 
 	//**********METHODS**************
@@ -61,7 +61,7 @@ public class MoonPhase{
 		System.out.println("*********************************************************");
 		System.out.println("* Hello! Today is " + formatDate(d) + "\t\t\t*");
 		System.out.printf("* The moon age since last New Moon is: %.2f days\t*\n",age);
-		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t\t*");
+		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t*");
 		System.out.println("* The sun is in: " + getSunSign(d)+ "\t\t\t\t*");
 		System.out.println("* The moon is in: " + getMoonSign(d)+ "\t\t\t\t*");
 		System.out.println("*********************************************************");
@@ -181,37 +181,37 @@ public class MoonPhase{
 	public static String getMoonPhase(double moonAge){
 		int ageInDays = (int)Math.round(moonAge);
 		switch(ageInDays){
-				case 0: return PHASE.NEW_MOON.toString().toLowerCase().replace("_"," ");
+				case 0: return "new moon 🌑";
 				case 1: 
 				case 2: 
 				case 3: 
 				case 4:  
 				case 5: 
-				case 6: return PHASE.WAXING_CRESCENT.toString().toLowerCase().replace("_"," ");
-				case 7: return PHASE.FIRST_QUARTER.toString().toLowerCase().replace("_"," ");
+				case 6: return "waxing crescent 🌒";
+				case 7: return "first quarter 🌓";
 				case 8: 
 				case 9: 
 				case 10: 
 				case 11: 
 				case 12: 
 				case 13: 
-				case 14: return PHASE.WAXING_GIBBOUS.toString().toLowerCase().replace("_"," ");
-				case 15: return PHASE.FULL_MOON.toString().toLowerCase().replace("_"," ");
+				case 14: return "waxing gibbous 🌔";
+				case 15: return "full moon 🌕";
 				case 16:  
 				case 17: 
 				case 18: 
 				case 19: 
 				case 20:
-				case 21: return PHASE.WANING_GIBBOUS.toString().toLowerCase().replace("_"," ");
-				case 22: return PHASE.THIRD_QUARTER.toString().toLowerCase().replace("_"," ");
+				case 21: return "waning gibbous 🌖";
+				case 22: return "third quarter 🌗";
 				case 23:  
 				case 24: 
 				case 25: 
 				case 26: 
 				case 27: 
 				case 28: 
-				case 29: return PHASE.WANING_CRESCENT.toString().toLowerCase().replace("_"," ");
-				default: return PHASE.UNKOWN.toString().toLowerCase().replace("_"," ");
+				case 29: return "waning crescent 🌘";
+				default: return "UNKNOWN";
 			} 
 
 		}
@@ -331,7 +331,7 @@ public class MoonPhase{
 		String theMoonPhase;
 		String continueFlag = "y";
 		boolean isValidInput = false;
-		String [] nextPhaseNames = {"new moon","first quarter","full moon","third quarter"};
+		String [] nextPhaseNames = {"new moon 🌑","first quarter 🌓","full moon 🌕","third quarter 🌗"};
 		double [] nextPhaseDays = {daysUntilNextNewMoon(currDate),daysUntilNextFirstQuarterMoon(currDate),daysUntilNextFullMoon(currDate),daysUntilNextThirdQuarterMoon(currDate)};
 		LocalDateTime [] nextPhaseDate = {currDate.plusHours(Math.round(nextPhaseDays[0]*24)),currDate.plusHours(Math.round(nextPhaseDays[1]*24)),currDate.plusHours(Math.round(nextPhaseDays[2]*24)),currDate.plusHours(Math.round(nextPhaseDays[3]*24))};
 
@@ -351,7 +351,7 @@ public class MoonPhase{
 		System.out.println("*****************************************************************");
 		for(int i = 0; i < nextPhaseNames.length;i++){
 			System.out.printf("* %.2f\tdays until next %s",nextPhaseDays[i], nextPhaseNames[i]);
-			System.out.println(" on " + formatDate(nextPhaseDate[i])+" \t*");
+			System.out.println(" on " + formatDate(nextPhaseDate[i])+"\t*");
 		}
 		System.out.println("*****************************************************************");
 		System.out.println();
@@ -381,8 +381,8 @@ public class MoonPhase{
 			userMoonAge = getMoonAge(userInputFormatted);
 			userMoonPhase = getMoonPhase(userMoonAge);
 
-			System.out.print("Moon phase at " + userInput + " is " + userMoonPhase + ", ");
-			System.out.printf("%.2f days since last new moon.\n",userMoonAge);
+			System.out.println("Moon phase at " + userInput + " is " + userMoonPhase);
+			// System.out.printf("%.2f days since last new moon.\n",userMoonAge);
 			System.out.println("The sun is in: " + getSunSign(userInputFormatted));
 			System.out.println("The moon is in: " + getMoonSign(userInputFormatted));
 			System.out.println();
