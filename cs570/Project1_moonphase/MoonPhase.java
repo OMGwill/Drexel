@@ -16,6 +16,8 @@ public class MoonPhase{
 	//************GLOBAL*************
 	private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+	private static final DateTimeFormatter dayFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	//seed for know new moon date/time from /https://www.almanac.com/astronomy/moon/calendar/zipcode/19382/2020-01
 	private static final LocalDateTime dateSeed = LocalDateTime.parse("2020-01-24 16:44:00", dateFormat);
 
@@ -49,6 +51,10 @@ public class MoonPhase{
 		return d.format(dateFormat);
 	}
 
+	public static String formatDay(LocalDateTime d){
+		return d.format(dayFormat);
+	}
+
 	//print welcome method
 	/**
 	* @param d (date) timestamp of type LocalDateTime
@@ -59,11 +65,11 @@ public class MoonPhase{
 		double age = getMoonAge(d);
 
 		System.out.println("*********************************************************");
-		System.out.println("* Hello! Today is " + formatDate(d) + "\t\t\t*");
-		System.out.printf("* The moon age since last New Moon is: %.2f days\t*\n",age);
-		System.out.println("* The moon's phase is: " + getMoonPhase(age)+ "\t\t*");
-		System.out.println("* The sun is in: " + getSunSign(d)+ "\t\t\t\t*");
-		System.out.println("* The moon is in: " + getMoonSign(d)+ "\t\t\t\t*");
+		System.out.printf("%-16s %-19s %19s%n","* Hello! Today is", formatDate(d),"*");
+		System.out.printf("%-38s %-5.2f %12s%n","* The moon age since last New Moon is:",age,"*");
+		System.out.printf("%-22s %-18s %15s%n","* The moon's phase is:",getMoonPhase(age), "*");
+		System.out.printf("%-16s %-13s %25s%n","* The sun is in:", getSunSign(d), "*");
+		System.out.printf("%-17s %-13s %24s%n","* The moon is in:", getMoonSign(d),"*");
 		System.out.println("*********************************************************");
 	}
 
@@ -331,7 +337,7 @@ public class MoonPhase{
 		String theMoonPhase;
 		String continueFlag = "y";
 		boolean isValidInput = false;
-		String [] nextPhaseNames = {"new moon 🌑","first quarter 🌓","full moon 🌕","third quarter 🌗"};
+		String [] nextPhaseNames = {"new moon 🌑   ","first quarter 🌓","full moon 🌕   ","third quarter 🌗"};
 		double [] nextPhaseDays = {daysUntilNextNewMoon(currDate),daysUntilNextFirstQuarterMoon(currDate),daysUntilNextFullMoon(currDate),daysUntilNextThirdQuarterMoon(currDate)};
 		LocalDateTime [] nextPhaseDate = {currDate.plusHours(Math.round(nextPhaseDays[0]*24)),currDate.plusHours(Math.round(nextPhaseDays[1]*24)),currDate.plusHours(Math.round(nextPhaseDays[2]*24)),currDate.plusHours(Math.round(nextPhaseDays[3]*24))};
 
@@ -344,18 +350,19 @@ public class MoonPhase{
 
 		//print welcome message
 		currDate = LocalDateTime.now();
+
 		printWelcome(currDate);
+		System.out.println();
+		System.out.println();		
+
+		System.out.println("*********************************************************");
+		for(int j = 0; j < nextPhaseNames.length;j++){
+			System.out.printf("* %-5.2f %-15s %16s %2s %10s %2s%n",nextPhaseDays[j], "days until next",nextPhaseNames[j],"on",formatDay(nextPhaseDate[j]),"*");
+		}
+		System.out.println("*********************************************************");
 		System.out.println();
 		System.out.println();
 
-		System.out.println("*****************************************************************");
-		for(int i = 0; i < nextPhaseNames.length;i++){
-			System.out.printf("* %.2f\tdays until next %s",nextPhaseDays[i], nextPhaseNames[i]);
-			System.out.println(" on " + formatDate(nextPhaseDate[i])+"\t*");
-		}
-		System.out.println("*****************************************************************");
-		System.out.println();
-		System.out.println();
 		
 		do{
 			isValidInput = false;
