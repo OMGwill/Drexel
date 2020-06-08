@@ -7,7 +7,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DriverTester{
+public class BlackJack{
 	public static void main(String[] args){
 		Scanner scnr = new Scanner(System.in);
 
@@ -18,24 +18,11 @@ public class DriverTester{
 		char playerAction;
 		char playAgain = 'y';
 
-		// ArrayList<Card> deck = new ArrayList<Card>();
-
-		// for(int i=0;i<=3;i++){
-		// 	for(int j =0;j<=12;j++){
-		// 		deck.add(new Card(i,j));
-		// 	}
-		// }
-
-
-		// for(Card card : deck){
-		// 	card.showCard();
-
-		// }
-
 
 		//initializes and shuffles deck of 52 playable cardes
 		Deck deck = new Deck();
 
+		//enters non dealer players
 		System.out.println("How many users are playing?");
 		numUsers = scnr.nextInt();
 
@@ -45,11 +32,12 @@ public class DriverTester{
 
 			System.out.println(users.size() + " users playing.");
 
-			Dealer dealer = new Dealer(deck);
+		//init dealer with deck
+		Dealer dealer = new Dealer(deck);
 
-
-			for(int i=0;i<=users.size()-1;i++){
-				System.out.println("How much cash does User"+(i+1)+" have?");
+		//enter starting cash for each user
+		for(int i=0;i<=users.size()-1;i++){
+			System.out.println("How much cash does User"+(i+1)+" have?");
 			try{
 				users.get(i).setCash(scnr.nextDouble());
 			}
@@ -60,10 +48,12 @@ public class DriverTester{
 			
 		}
 
+		//confirmation of cash
 		for(int i=0;i<=users.size()-1;i++){
 			System.out.printf("User%d has $%.2f%n",users.get(i).getUserNum(),users.get(i).getCash()); 
 		}
 
+		//loop while play again is true
 		while(playAgain!='n'){
 			System.out.println();
 			System.out.println();
@@ -73,9 +63,10 @@ public class DriverTester{
 			System.out.println();
 			System.out.println();
 			System.out.println("================BLACKJACK================");
+			System.out.println();
+			System.out.println();
 
-			System.out.println();
-			System.out.println();
+			//bets
 			System.out.println("Users, place your bets!");
 			System.out.println("=======================");
 
@@ -91,14 +82,16 @@ public class DriverTester{
 				userBets.add(playerBet);
 			}
 
+			//bet confirmation
 			System.out.println();
 			for(int i=0;i<=users.size()-1;i++){
 				System.out.printf("User%d bet $%.2f",users.get(i).getUserNum(),users.get(i).getCurrentBet());
 				System.out.println();
 			}
+			System.out.println();
+			System.out.println();
 
-			System.out.println();
-			System.out.println();
+			//deal cards
 			System.out.println("Dealing Cards...");
 			System.out.println("=======================");
 			System.out.println();
@@ -126,14 +119,13 @@ public class DriverTester{
 				users.get(i).showHand();
 				System.out.println();
 			}
-
-
-
 			dealer.deal(dealer);
 			System.out.print("***Dealer is delt a card face down");
 			System.out.println();
 			System.out.println();
+			//end deal cards
 
+			//hit or stad
 			System.out.println("Users, hit or stand!");
 			System.out.println("=======================");
 			System.out.println();
@@ -166,6 +158,7 @@ public class DriverTester{
 			}
 
 
+			//hand totals
 			System.out.println("Round Totals");
 			System.out.println("=======================");
 			System.out.println();
@@ -174,6 +167,8 @@ public class DriverTester{
 				users.get(i).showHand();
 				System.out.println();
 			}
+
+			//dealer hit or stand
 			System.out.println("Dealers Turn");
 			System.out.println("=======================");
 			System.out.println();
@@ -218,25 +213,9 @@ public class DriverTester{
 					}
 				}
 
-				// if(users.get(i).getHandTotal() > dealer.getHandTotal() && users.get(i).getHandTotal()<=21){
-				// 	System.out.printf("User%d wins %.2f%n",users.get(i).getUserNum(),userBets.get(i));
-				// 	users.get(i).setCash(users.get(i).getCash()+(userBets.get(i)*2.0));
-				// }
-				// if(users.get(i).getHandTotal() == dealer.getHandTotal() && users.get(i).getHandTotal()<=21){
-				// 	System.out.printf("User%d ties and keeps %.2f%n",users.get(i).getUserNum(),userBets.get(i));
-				// 	users.get(i).setCash(users.get(i).getCash()+(userBets.get(i)));
-				// }
-
-				// if(users.get(i).getHandTotal() < 21 && dealer.getHandTotal()>21){
-				// 	System.out.printf("User%d wins %.2f%n",users.get(i).getUserNum(),userBets.get(i));
-				// 	users.get(i).setCash(users.get(i).getCash()+(userBets.get(i)*2.0));
-				// }
-
-				// if(users.get(i).getHandTotal() > dealer.getHandTotal() && dealer.getHandTotal()<=21){
-				// 	System.out.printf("User%d wins %.2f%n",users.get(i).getUserNum(),userBets.get(i));
-				// 	users.get(i).setCash(users.get(i).getCash()+(userBets.get(i)*2.0));
 			}
 
+			//wipe current bets
 			while(userBets.size()>0)
 				userBets.remove(0);
 			
@@ -245,13 +224,10 @@ public class DriverTester{
 			System.out.println();
 				
 
+			//discard used cards
 			System.out.println("Discarding...");
 			System.out.println("=======================");
 			System.out.println();
-
-			
-
-			
 
 			for(int i=0;i<=users.size()-1;i++){
 				while(users.get(i).getHandSize()!=0){
@@ -264,32 +240,22 @@ public class DriverTester{
 					dealer.discardCard(dealer);
 				}
 
-			//deck.showPileSize();
-			//test
-			// for(int i=0;i<=users.size()-1;i++){
-			// 	System.out.printf("User%d's hand total:%d%n",users.get(i).getUserNum(),users.get(i).getHandTotal());
-			// 	users.get(i).showHand();
-			// 	System.out.println();\
 
-
-
+			//play again prompt
 			System.out.println("Play Again? y/n");
 			playAgain = scnr.next().charAt(0);
 		}
 
-			// System.out.printf("Dealer's hand total:%d%n",dealer.getHandTotal());
-			// 	dealer.showHand();
-			// 	System.out.println();
+
+		//end game printout
+		System.out.println("Game Ending...");
+		System.out.println("=======================");
+		System.out.println();
+
+		for(int i=0;i<=users.size()-1;i++){
+			System.out.printf("User%d leaves the table with $%.2f%n",users.get(i).getUserNum(),users.get(i).getCash());
+		}
 
 
-			
-
-			// deck.shuffle();
-
-			// deck.showPileSize();
-			// System.out.println("Play Again? y/n");
-			// playAgain = scnr.next().charAt(0);
-
-		//}
 	}
 }
