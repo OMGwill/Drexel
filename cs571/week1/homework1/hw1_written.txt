@@ -1,0 +1,113 @@
+1. The following message is displayed when you attempt to log in with an
+incorrect username or an incorrect password:
+Login incorrect
+This message does not indicate whether your it information?
+
+For security reasons, the system will not tell you where the error occured. If the system were to give more detailed information about where the error happened, it would give a hacker or unauthorized user some hints to a correct input of a username/password.
+
+
+
+
+2. Give three examples of poor password choices. What is wrong with each?
+Include one that is too short. Give the error message the system displays.
+
+password - super easy to guess, all lowercase, no numbers or special characters
+12151993 - can be the user's birthday, no alpha or special characters
+Ruby@5 - too short, error message via tux: BAD PASSWORD: The password is shorter than 8 characters
+
+
+
+
+3. Is fido an acceptable password? Give several reasons why or why not.
+
+No, its only has lowercase letters, no capital letters, numbers, or special characters, password is too short and is easy to guess
+
+
+
+
+4. What would you do if you could not log in?
+
+Re-enter username and password until you are certain that you have entered both correctly, then contact the system administrator. 
+
+
+
+
+5. Try to change your password to dog. What happens? Now change it to a
+more secure password. What makes that password relatively secure?
+
+In tux, when tring to change password to 'dog', we recieve the following error:
+BAD PASSWORD: The password is shorter than 8 characters
+
+When changing password to that of acceptable length and alpha-numeric such as captial letters, lowercase letters, numbers, and symbols we recieve the message:
+passwd: password updated successfully
+This password is secure because it contains all of the characters mentioned above which will make it hard to guess and or brute force.
+
+
+
+
+6. How would you display a list of utilities that compress files? 
+
+You can use the apropos command:
+apropos compress
+
+
+
+
+7. How would you repeat the second preceding command line, edit it, and
+then execute it?
+
+From the command line, press the up arrow twice, the second preceding command is shown. 
+Using the left and right arrow keys, move the cursor to where it is desired and use backspace to delete characters or start typing to add characters, when finished press enter.
+
+
+
+
+8. Briefly, what information does the ––help option display for the tar utility?
+How would you display this information one screen at a time?
+
+'tar --help' gives you information about the usage of the tar command and shows all the '-' options you can set when using the tar command.
+
+To display one screen at a time you would enter: 
+tar --help | less
+
+
+
+
+9. How would you display the man page for shadow in section 5 of the system
+manual?
+
+man 5 shadow
+
+
+
+
+
+10. How would you change your login shell to tcsh without using root
+privileges?
+
+There are a few steps to do to change the login shell to tcsh without root priveleges
+
+Normally, you can use 'chsh -s tcsh' with tcsh installed, but tux results in error:
+wal37@tux3:~$ chsh -s tcsh
+Password: 
+chsh: tcsh is an invalid shell
+
+Workaround:
+
+1) vi .bash_profile
+Enter insert mode by pressing i:
+export SHELL=/bin/tcsh
+exec /bin/tcsh -l
+
+2) Save the file with :wq
+
+3) Start a new session by logging out of tux and logging in again
+
+4) Command prompt now looks like:
+tux5:~> 
+
+5) Check shell:
+tux5:~> echo $0
+/bin/tcsh
+
+
