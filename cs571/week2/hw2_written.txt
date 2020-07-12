@@ -1,1 +1,118 @@
-placeholder
+1. Which commands can you use to determine who is logged in on a specific terminal?
+whoami
+who am i
+who
+w
+finger
+
+
+
+
+2. How can you keep other users from using write to communicate with you? Why would you want to?
+You can use the 'mesg n' command to block messages from the write command. 
+You would want to do this to prevent the two way communication and message banner from writing to your screen when doing some type of essential work like running scripts or creating files.
+
+
+
+
+3. What happens when you give the following commands if the file named done already exists?
+$ cp to_do done
+$ mv to_do done
+Both of these commands will overwite the already existing 'done' file with the contents of the 'to_do' file.
+
+
+
+
+4. How can you find out which utilities are available on your system for editing files? Which utilities are available for editing on your system?
+apropos edit
+zshzle, xedit, vi, nano, ex, emacs, and many others are available for editing on TUX servers. 
+
+
+
+
+5. How can you find the phone number for Ace Electronics in a file named phone that contains a list of names and phone numbers? Which command can you use to display the entire file in alphabetical order? How can you display the file without any adjacent duplicate lines? How can you display the file without any duplicate lines?
+grep 'Ace Electronics' phone
+sort phone
+uniq phone
+sort -u phone
+
+
+
+
+6. What happens when you use diff to compare two binary files that are not identical? (You can use gzip to create the binary files.) Explain why the diff output for binary files is different from the diff output for ASCII files.
+The below prompt shows when the binary files differ, no prompt when the binary files are the same. Diff compares the entire file for similarities.
+wal37@tux5:~/cs571$ diff color.gz color2.gz 
+Binary files color.gz and color2.gz differ
+
+The following is printed when the ASCII files are different when compared with diff, no prompt when files are the same. ASCII diff compares two files line by line for similarities.
+wal37@tux5:~/cs571$ diff color color2
+5c5
+< purpe
+---
+> purple
+8a9,10
+> 
+> differnet
+
+
+
+
+7. Create a .plan file in your home directory. Does finger display the contents of your .plan file?
+Yes is does when you use 'finger user' on our TUX servers:
+wal37@tux5:~$ finger wal37
+Login: wal37          			Name: William Luttmann
+Directory: /home/wal37              	Shell: /bin/bash
+On since Sat Jul  4 18:50 (EDT) on pts/0 from 129.25.203.107
+   7 seconds idle
+Mail forwarded to wal37@drexel.edu
+No mail.
+Plan:
+this is the plan hidden file
+
+
+
+
+8. What is the result of giving the which utility the name of a command that resides in a directory that is not in your search path?
+wal37@tux5:~$ which vi
+/usr/bin/vi
+wal37@tux5:~$ which vim
+/usr/bin/vim
+wal37@tux5:~$ which vimm
+wal37@tux5:~$ which emacs
+/usr/bin/emacs
+wal37@tux5:~$ which tilix
+wal37@tux5:~$ 
+
+vimm and tilix are commands that do not reside in search path. Nothing is returned.
+
+
+
+
+11. Which command can you use to look at the first few lines of a file named status.report? Which command can you use to look at the end of the file?
+The 'head status.report' command can be used to look at the first few lines of a file named status.report.
+'tail status.report' will look at the last few lines of the file.
+
+
+
+12. Re-create the colors.1 and colors.2 files used in Figure 3-8 on page 59. Test your files by running diff –u on them. Does diff display the same results as in the figure?
+Yes, the output is the same besides the timestamps and the permissons of the files.
+wal37@tux5:~/cs571/week2$ diff -u color.1 color.2
+--- color.1	2020-07-04 20:23:44.338383478 -0400
++++ color.2	2020-07-04 20:24:46.590177983 -0400
+@@ -1,6 +1,5 @@
+ red
++blue
+ green
+ yellow
+-pink
+-purple
+ orange
+wal37@tux5:~/cs571/week2$ 
+
+
+
+
+*********************************************************
+video URL
+
+https://1513041.mediaspace.kaltura.com/media/1_czjuuxnp

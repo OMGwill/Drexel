@@ -1,0 +1,12 @@
+video_notes.txt
+
+
+finger
+
+
+finger | grep 'Login' | sort >> users.txt
+
+finger | grep 'Jul  5' | sort -r >> users.txt
+
+
+cat users.txt
