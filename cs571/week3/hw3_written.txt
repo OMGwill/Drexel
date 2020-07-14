@@ -1,0 +1,226 @@
+1. Is each of the following an absolute pathname, a relative pathname, or a
+simple filename?
+a. milk_co : simple filename or relative pathname
+b. correspond/business/milk_co : relative pathname
+c. /home/max : absolute pathname
+d. /home/max/literature/promo : absolute pathname
+e. .. : relative pathname
+f. letter.0210 : simple filename
+
+
+
+
+2. List the commands you can use to perform these operations:
+a. Make your home directory the working directory : cd ~
+b. Identify the working directory : pwd
+
+
+
+
+3. If the working directory is /home/max with a subdirectory named
+literature, give three sets of commands you can use to create a subdirectory
+named classics under literature. Also give several sets of commands you can
+use to remove the classics directory and its contents.
+mkdir literature/classics
+mkdir ~/literature/classics
+mkdir -p literature/classics
+
+rm -r literature/classics
+rmdir literature/classics
+rmdir ~/literature/classics
+
+
+
+
+4. The df utility displays all mounted filesystems along with information about
+each. Use the df utility with the –h (human-readable) option to answer the
+following questions:
+a. How many filesystems are mounted on the local system?
+b. Which filesystem stores your home directory?
+
+wal37@tux5:~/cs571/week3/literature$ df -h
+Filesystem                       Size  Used Avail Use% Mounted on
+udev                              32G     0   32G   0% /dev
+tmpfs                            6.3G  1.9M  6.3G   1% /run
+/dev/mapper/vgubuntu--mate-root  125G   27G   92G  23% /
+tmpfs                             32G     0   32G   0% /dev/shm
+tmpfs                            5.0M     0  5.0M   0% /run/lock
+tmpfs                             32G     0   32G   0% /sys/fs/cgroup
+/dev/loop1                       157M  157M     0 100% /snap/chromium/1193
+/dev/loop2                        55M   55M     0 100% /snap/core18/1754
+/dev/loop4                        63M   63M     0 100% /snap/gtk-common-themes/1506
+/dev/loop5                        31M   31M     0 100% /snap/snapd/7777
+/dev/loop3                        55M   55M     0 100% /snap/core18/1705
+/dev/loop6                        30M   30M     0 100% /snap/snapd/8140
+/dev/loop7                        15M   15M     0 100% /snap/ubuntu-mate-welcome/539
+/dev/loop8                        15M   15M     0 100% /snap/ubuntu-mate-welcome/524
+/dev/loop9                       128K  128K     0 100% /snap/software-boutique/54
+/dev/vda1                        511M  4.0K  511M   1% /boot/efi
+10.246.251.16:6789:/site          51T   12T   40T  22% /site
+10.246.251.16:6789:/home2         51T   12T   40T  22% /home2
+10.246.251.16:6789:/homes         51T   12T   40T  22% /home
+tmpfs                            6.3G  8.0K  6.3G   1% /run/user/114
+tmpfs                            6.3G   32K  6.3G   1% /run/user/13982
+tmpfs                            6.3G   28K  6.3G   1% /run/user/16709
+tmpfs                            6.3G     0  6.3G   0% /run/user/17132
+tmpfs                            6.3G     0  6.3G   0% /run/user/15719
+tmpfs                            6.3G     0  6.3G   0% /run/user/17163
+tmpfs                            6.3G     0  6.3G   0% /run/user/16565
+tmpfs                            6.3G     0  6.3G   0% /run/user/13399
+/dev/loop10                      157M  157M     0 100% /snap/chromium/1213
+tmpfs                            6.3G     0  6.3G   0% /run/user/13430
+tmpfs                            6.3G     0  6.3G   0% /run/user/16195
+tmpfs                            6.3G     0  6.3G   0% /run/user/13235
+tmpfs                            6.3G     0  6.3G   0% /run/user/13207
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/12963
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/15451
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/12638
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/14449
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/14181
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/17118
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/17137
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/16724
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/14636
+tmpfs                            6.3G  4.0K  6.3G   1% /run/user/13018
+
+tux has 42 filesystems.
+
+10.246.251.16:6789:/homes stores my home directory.
+
+
+
+
+5. Suppose you have a file that is linked to a file owned by another user. How
+can you ensure that changes to the file are no longer shared?
+You can use 'cp' to create a copy of the file that is linked and then use 'unlink' or 'rm' to delete the link.
+
+
+
+
+7. If /home/zach/draft and /home/max/letter are links to the same file and the
+following sequence of events occurs, what will be the date in the opening of
+the letter?
+a. Max gives the command vim letter.
+b. Zach gives the command vim draft.
+c. Zach changes the date in the opening of the letter to January 31, writes
+the file, and exits from vim .
+d. Max changes the date to February 1, writes the file, and exits from vim .
+
+When max tries to write the file, this message is displayed:
+"letter"
+WARNING: The file has been changed since reading it!!!
+Do you really want to write to it (y/n)?
+
+Max enters y and writes the file. The date is February 1, which was the latest edit.
+
+
+
+
+8. Suppose a user belongs to a group that has all permissions on a file named
+jobs_list, but the user, as the owner of the file, has no permissions. Describe
+which operations, if any, the user/owner can perform on jobs_list. Which
+command can the user/owner give that will grant the user/owner all permis-
+sions on the file?
+chmod 775 jobs_list
+The first 7 gives the owner read/write/execute permission.
+The second 7 gives the group read/write/execute permission.
+The 5 gives others read/execute permission. 
+
+
+
+
+9. Does the root directory have any subdirectories you cannot search as an
+ordinary user? Does the root directory have any subdirectories you cannot
+read as a regular user? Explain.
+wal37@tux5:~/cs571/week3/literature$ ls -ld /*
+lrwxrwxrwx   1 root root     7 Jun  9 14:43 /bin -> usr/bin
+drwxr-xr-x   4 root root  4096 Jul  3 06:09 /boot
+drwxrwxr-x   2 root root  4096 Jun  9 14:47 /cdrom
+drwxr-xr-x  20 root root  4120 Jun 26 06:42 /dev
+drwxr-xr-x 179 root root 12288 Jul  7 06:54 /etc
+drwxr-xr-x   2 root root  6487 Jun 26 08:48 /home
+drwxr-xr-x  30 root root    28 Dec  4  2018 /home2
+lrwxrwxrwx   1 root root     7 Jun  9 14:43 /lib -> usr/lib
+lrwxrwxrwx   1 root root     9 Jun  9 14:43 /lib32 -> usr/lib32
+lrwxrwxrwx   1 root root     9 Jun  9 14:43 /lib64 -> usr/lib64
+lrwxrwxrwx   1 root root    10 Jun  9 14:43 /libx32 -> usr/libx32
+drwx------   2 root root 16384 Jun  9 14:42 /lost+found
+drwxr-xr-x   3 root root  4096 Jun 10 08:24 /media
+drwxr-xr-x   2 root root  4096 Apr 23 03:33 /mnt
+drwxr-xr-x   2 root root  4096 Apr 23 03:33 /opt
+dr-xr-xr-x 635 root root     0 Jun 18 09:17 /proc
+drwx------   7 root root  4096 Jun 23 09:20 /root
+drwxr-xr-x  42 root root  1360 Jul 12 16:47 /run
+lrwxrwxrwx   1 root root     8 Jun  9 14:43 /sbin -> usr/sbin
+drwxr-xr-x  12 root root    11 May 16  2019 /site
+drwxr-xr-x   9 root root  4096 Jun 10 10:12 /snap
+drwxr-xr-x   2 root root  4096 Apr 23 03:33 /srv
+dr-xr-xr-x  13 root root     0 Jun 18 09:17 /sys
+drwxrwxrwt  18 root root  4096 Jul 12 16:45 /tmp
+drwxr-xr-x  15 root root  4096 Jun 10 10:45 /usr
+drwxr-xr-x  14 root root  4096 Apr 23 03:48 /var
+
+As an ordinary user in tux, we cannot read 2 directories because we are not the owner or in the user group 'root':
+/lost+found
+/root
+
+These directories are also not searchable due to the access permissions:
+wal37@tux5:~/cs571/week3/literature$ ls -l /lost+found
+ls: cannot open directory '/lost+found': Permission denied
+wal37@tux5:~/cs571/week3/literature$ ls -l /root
+ls: cannot open directory '/root': Permission denied
+
+
+
+
+10. Assume you are given the directory structure shown in Figure 4-2 on
+page 85 and the following directory permissions:
+d--x--x--- 3 zach pubs 512 2018-03-10 15:16 business
+drwxr-xr-x 2 zach pubs 512 2018-03-10 15:16 business/milk_co
+For each category of permissions—owner, group, and other—what happens
+when you run each of the following commands? Assume the working direc-
+tory is the parent of correspond and that the file cheese_co is readable by
+everyone.
+a. cd correspond/business/milk_co : zach and users in group pubs can cd to milk_co because of x for owner and group, others cannot with error permission denied 
+b. ls –l correspond/business : all users, owner, group, other, will get error permission denied because no one has read access.
+c. cat correspond/business/cheese_co : owner and group pubs print contents of file cheese_co, other gets permission denied because they don't have execute permission in direcotry business
+
+
+
+
+13. How can you create a file named –i? Which techniques do not work, and
+why do they not work? How can you remove the file named –i?
+wal37@tux5:~/cs571/week3$ touch -i
+touch: invalid option -- 'i'
+Try 'touch --help' for more information.
+wal37@tux5:~/cs571/week3$ touch '-i'
+touch: invalid option -- 'i'
+Try 'touch --help' for more information.
+wal37@tux5:~/cs571/week3$ touch "-i"
+touch: invalid option -- 'i'
+Try 'touch --help' for more information.
+wal37@tux5:~/cs571/week3$ touch \-i
+touch: invalid option -- 'i'
+Try 'touch --help' for more information.
+wal37@tux5:~/cs571/week3$ touch /-i
+touch: cannot touch '/-i': Permission denied
+
+These do not work because they think -i is an option for touch or vi or whatever is trying to make the file.
+
+'touch -- -i' works because '--' specifies that there are no options past this point.
+
+Similarly, you have to use 'rm -- -i' to remove the file named '-i'
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
+video URL
+
+https://1513041.mediaspace.kaltura.com/media/1_7mtuyp6c
