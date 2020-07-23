@@ -121,10 +121,10 @@ jobs_list, but the user, as the owner of the file, has no permissions. Describe
 which operations, if any, the user/owner can perform on jobs_list. Which
 command can the user/owner give that will grant the user/owner all permis-
 sions on the file?
-chmod 775 jobs_list
+chmod 770 jobs_list
 The first 7 gives the owner read/write/execute permission.
 The second 7 gives the group read/write/execute permission.
-The 5 gives others read/execute permission. 
+The 0 gives others no permissions. 
 
 
 

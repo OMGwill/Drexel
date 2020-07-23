@@ -1,0 +1,298 @@
+Q1
+wal37@tux3:~/cs571/week4$ find . -type f -mtime -2 -print
+./hw4/Tmp/gotMe.bash
+./hw4/spellExample
+./hw4/list
+./hw4/breadIsDangerous.txt
+./hw4/eg.bash
+./hw4/numbers
+
+
+
+
+Q2 
+wal37@tux3:~/cs571/week4/hw4$ find -type f -name '*.bash'
+./Tmp/gotMe.bash
+./eg.bash
+
+
+
+
+
+Q3
+wal37@tux3:~/cs571/week4/hw4$ wc -w breadIsDangerous.txt
+499 breadIsDangerous.txt
+
+
+
+
+Q4
+wal37@tux3:~/cs571/week4/hw4$ wc -w < breadIsDangerous.txt
+499
+
+
+
+
+Q5
+wal37@tux3:~/cs571/week4/hw4$ ls -l
+total 9
+-rw-rw-r-- 1 wal37 wal37 2960 Jul 18 15:38 breadIsDangerous.txt
+-rw-rw-r-- 1 wal37 wal37 3921 Jul 18 15:38 eg.bash
+-rw-rw-r-- 1 wal37 wal37   13 Jul 18 15:40 list
+-rw-rw-r-- 1 wal37 wal37   27 Jul 18 15:38 numbers
+-rw-rw-r-- 1 wal37 wal37   97 Jul 18 15:38 spellExample
+drwxrwxr-x 2 wal37 wal37    1 Jul 18 15:41 Tmp
+
+wal37@tux3:~/cs571/week4/hw4$ ls -1 | wc -l
+6
+
+
+
+
+Q6
+wal37@tux3:~/cs571/week4/hw4$ grep 'bread' breadIsDangerous.txt 
+into the use of bread:
+1.   More than 98 percent of convicted felons are bread users.
+2.   Fully HALF of all children who grow up in bread-consuming
+3.   In the 18th century, when virtually all bread was baked in
+bread and gi
+suffocate a mouse. The average American eats more bread than that
+6.   Primitive tribal societies that have no bread exhibit a low
+24 hours of eating bread.
+suffocate a mouse. The average American eats more bread than that
+6.   Primitive tribal societies that have no bread exhibit a low
+bread and given only water to eat begged for bread after as
+is more than 90 percent water, it follows that eating bread could
+product, turning you into a soggy, gooey bread-pudding person.
+10.  Newborn babies can choke on bread.
+12.  Most American bread eaters are utterly unable to distinguish
+following bread restrictions:
+1.   No sale of bread to minors.
+3.   A 300 percent federal tax on all bread to pay for all the
+societal ills we might associate with bread.
+appeal to children) may be used to promote bread usage.
+
+
+
+
+
+Q7
+wal37@tux3:~/cs571/week4/hw4$ grep ' the ' breadIsDangerous.txt
+into the use of bread:
+3.   In the 18th century, when virtually all bread was baked in
+the home, the average life expectancy was less than 50 years;
+8.   Bread is often a "gateway" food item, leading the user to
+9.   Bread has been proven to absorb water. Since the human body
+
+
+wal37@tux3:~/cs571/week4/hw4$ grep ' the ' breadIsDangerous.txt | wc -l
+5
+
+
+
+
+
+
+Q8
+wal37@tux3:~/cs571/week4/hw4$ ls -l
+total 9
+-rw-rw-r-- 1 wal37 wal37 2960 Jul 18 15:38 breadIsDangerous.txt
+-rw-rw-r-- 1 wal37 wal37 3921 Jul 18 15:38 eg.bash
+-rw-rw-r-- 1 wal37 wal37   13 Jul 18 15:40 list
+-rw-rw-r-- 1 wal37 wal37   27 Jul 18 15:38 numbers
+-rw-rw-r-- 1 wal37 wal37   97 Jul 18 16:13 spellExample
+-rw-rw-r-- 1 wal37 wal37   97 Jul 18 15:38 spellExample.bak
+drwxrwxr-x 2 wal37 wal37    1 Jul 18 15:41 Tmp
+wal37@tux3:~/cs571/week4/hw4$ cat spellExample.bak 
+I went to a gadren party
+This line is fine
+bnuch of my old freinds did somehting
+
+As is this one
+wal37@tux3:~/cs571/week4/hw4$ cat spellExample
+I went to a garden partywal37@tux3:~/cs571/week4/hw4$ diff spellExample.bak spellExample
+1c1
+< I went to a gadren party
+---
+> I went to a garden party
+3c3
+< bnuch of my old freinds did somehting
+---
+> bunch of my old friends did something
+5a6
+> An extra line
+This line is fine
+bunch of my old friends did something
+
+As is this one
+
+
+
+ispell made a .bak file of the original and saved the correct spelling in the current filename
+
+
+
+
+
+
+
+Q9
+wal37@tux3:~/cs571/week4/hw4$ diff spellExample.bak spellExample
+1c1
+< I went to a gadren party
+---
+> I went to a garden party
+3c3
+< bnuch of my old freinds did somehting
+---
+> bunch of my old friends did something
+5a6
+> An extra line
+
+
+
+line 1 in the first file '<' was changed 'c' to line 1 in the second file '>'
+line 3 in the first file '<' was changed 'c' to line 3 in the second file '>'
+there was a line added after line 5 in the first file, line 6 of the second file '>
+
+
+
+
+Q10
+wal37@tux3:~/cs571/week4/hw4$ diff spellExample spellExample
+wal37@tux3:~/cs571/week4/hw4$ 
+
+nothing, files are the same
+
+
+
+
+Q11
+wal37@tux3:~/cs571/week4/hw4$ cat numbers 
+17
+24
+1
+9
+26
+15
+29
+6
+20
+28
+wal37@tux3:~/cs571/week4/hw4$ sort numbers 
+1
+15
+17
+20
+24
+26
+28
+29
+6
+9
+
+
+the output was sorted by words, not numerical value
+
+
+
+
+Q12
+wal37@tux3:~/cs571/week4/hw4$ sort -n numbers
+1
+6
+9
+15
+17
+20
+24
+26
+28
+29
+
+setting the -n option enables numeric sort
+
+
+Q13
+wal37@tux3:~/cs571/week4/hw4$  ls -oh | sort -k4 -h -r
+-rw-rw-r-- 1 wal37 3.9K Jul 18 15:38 eg.bash
+-rw-rw-r-- 1 wal37 2.9K Jul 18 15:38 breadIsDangerous.txt
+-rw-rw-r-- 1 wal37  111 Jul 18 16:13 spellExample
+-rw-rw-r-- 1 wal37   97 Jul 18 15:38 spellExample.bak
+-rw-rw-r-- 1 wal37   27 Jul 18 15:38 numbers
+-rw-rw-r-- 1 wal37   13 Jul 18 15:40 list
+drwxrwxr-x 2 wal37    1 Jul 18 15:41 Tmp
+total 9.0K
+
+
+sorted by column 4, human readable, in reverse (greatest to least)
+
+
+
+Q14
+wal37@tux1:~/cs571/week4/hw4$ ls -l
+total 11
+-rw-rw-r-- 1 wal37 wal37   18 Jul 18 22:47 adifferentfile
+-rw-rw-r-- 1 wal37 wal37    5 Jul 18 22:46 afile
+-rw-rw-r-- 1 wal37 wal37   18 Jul 18 22:47 afile2
+-rw-rw-r-- 1 wal37 wal37 2960 Jul 18 15:38 breadIsDangerous.txt
+-rw-rw-r-- 1 wal37 wal37 3921 Jul 18 15:38 eg.bash
+-rw-rw-r-- 1 wal37 wal37   13 Jul 18 15:40 list
+-rw-rw-r-- 1 wal37 wal37   27 Jul 18 15:38 numbers
+-rw-rw-r-- 1 wal37 wal37  111 Jul 18 16:13 spellExample
+-rw-rw-r-- 1 wal37 wal37   97 Jul 18 15:38 spellExample.bak
+drwxrwxr-x 2 wal37 wal37    1 Jul 18 15:41 Tmp
+-rw-rw-r-- 1 wal37 wal37   17 Jul 18 22:47 yetanotherfile
+wal37@tux1:~/cs571/week4/hw4$ find . -type f -exec du -ab {} + | sort -nr | head -n 8
+3921	./eg.bash
+2960	./breadIsDangerous.txt
+111	./spellExample
+97	./spellExample.bak
+36	./Tmp/gotMe.bash
+27	./numbers
+18	./afile2
+18	./adifferentfile
+
+
+
+
+
+Q15
+wal37@tux1:~/cs571/week4/hw4$ grep dough breadIsDangerous.txt
+roven that as little as one pound of dough can be used to
+5.   Bread is made from a substance called "dough." It has been
+proven that as little as one pound of dough can be used to
+wal37@tux1:~/cs571/week4/hw4$ echo $?
+0
+wal37@tux1:~/cs571/week4/hw4$ grep uniqueString breadIsDangerous.txt
+wal37@tux1:~/cs571/week4/hw4$ echo $?
+1
+wal37@tux1:~/cs571/week4/hw4$ grep dough noSuchFile
+grep: noSuchFile: No such file or directory
+wal37@tux1:~/cs571/week4/hw4$ echo $?
+2
+
+Since the first grep command found a match, the return value is 0. 
+The second grep command did not find any line with uniqueString so its return value is 1.
+The third grep command encountered an error, no such file so it returned 2.
+
+
+From 'man grep':
+EXIT STATUS
+       Normally the exit status is 0 if a line is selected, 1 if no lines were selected, and  2  if  an
+       error  occurred.   However, if the -q or --quiet or --silent is used and a line is selected, the
+       exit status is 0 even if an error occurred.
+
+
+Q16
+wal37@tux1:~/cs571/week4/hw4$ f=breadIsDangerous.txt
+wal37@tux1:~/cs571/week4/hw4$ echo "File $f has $(wc -w < "$f") words"
+File breadIsDangerous.txt has 499 words
+wal37@tux1:~/cs571/week4/hw4$ 
+
+
+
+
+Q17
+wal37@tux1:~/cs571/week4/hw4$ echo -n 'The current directory is: ' && pwd
+The current directory is: /home/wal37/cs571/week4/hw4
