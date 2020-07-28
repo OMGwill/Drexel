@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if ! [ "$(ls *-*.mp3)" ]
+then
+	echo "ERROR: No music files with '-' to organize."
+	exit 1
+fi
+
+DELIM=" - "
+
+echo "Organizing music..."
+
+for SONG in *-*.mp3
+do
+	WORKINGSTR="$SONG""$DELIM"
+	
+	array=()
+	
+	while [[ "$WORKINGSTR" ]]
+	do
+		array+=( "${WORKINGSTR%%"$DELIM"*}" )
+		WORKINGSTR=${WORKINGSTR#*"$DELIM"}
+	done
+	
+	
+	
+	mkdir -p "${array[0]}" && cd "${array[0]}"
+	
+	mv ../*"${array[1]}" ./"${array[1]}"
+	
+	cd ..
+	
+	array=("${array[@]:1}")
+	array=("${array[@]:1}")
+done
+
+echo "Organization completed."
+

@@ -1,0 +1,40 @@
+#!/bin/bash
+
+working_dir=`pwd`
+#echo $working_dir
+
+#
+PARAM1=${1:-"-1"}
+PARAM2=${2:-"-1"}
+
+#echo $PARAM1 $PARAM2
+
+if [[ "$PARAM1" == "-1" && "$PARAM2" == "-1" ]]
+then
+	echo "ERROR: The two required parameters are not set"
+	exit 1
+elif [[ "$PARAM2" == "-1" ]]
+then
+	echo "ERROR: The second required parameter is not set"
+	exit 1
+elif ! [[ "$PARAM2" =~ ^\.?[A-Z]?[a-z]{0,4}\.?\d?[a-z]{0,4} ]]
+then
+	echo "ERROR: The second parameter must be a valid extension..."
+	echo "Ex. .pdf .tgz .txt .tar.gz .text .jpg .bzip2"
+	exit 1
+fi
+
+echo "Listing files with $PARAM1:"
+if ls *$PARAM1 
+then
+	echo "$PARAM1 files found"
+else
+	echo "ERROR: $PARAM1 does not exist in $working_dir"
+	exit 1
+fi
+
+for filename in *$PARAM1
+do
+#echo $fname
+mv "$filename" "`basename ${filename} $PARAM1`$PARAM2"
+done
