@@ -1,0 +1,119 @@
+\documentclass{article}
+
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  commentstyle=\color{red},
+  keywordstyle=\color{blue},
+  frame=single
+}
+\begin{document}
+	\title{CS 571 Homework 10}
+	\author{William Luttmann}
+	\maketitle
+
+\newpage
+
+\section{This is a section header}
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dignissim sodales ut eu sem integer vitae justo eget. Natoque penatibus et magnis dis parturient montes. Vestibulum sed arcu non odio. Auctor neque vitae tempus quam. Eget nunc lobortis mattis aliquam faucibus purus in. Mi quis hendrerit dolor magna eget. Amet consectetur adipiscing elit ut aliquam purus sit. Felis imperdiet proin fermentum leo vel orci. Iaculis eu non diam phasellus. Nunc sed augue lacus viverra vitae. Lorem ipsum dolor sit amet.
+\subsection{This is a subsection header}
+Ac odio tempor orci dapibus ultrices in. Elit sed vulputate mi sit amet. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. Feugiat nisl pretium fusce id velit ut tortor. Mauris vitae ultricies leo integer malesuada. Egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Velit egestas dui id ornare arcu odio ut. Vestibulum morbi blandit cursus risus at ultrices. Nisl condimentum id venenatis a condimentum. Molestie nunc non blandit massa enim nec. Elementum eu facilisis sed odio morbi. Egestas dui id ornare arcu odio ut sem nulla pharetra. Euismod quis viverra nibh cras pulvinar mattis nunc. Lobortis elementum nibh tellus molestie nunc non. Semper viverra nam libero justo. Amet cursus sit amet dictum sit. Tristique magna sit amet purus gravida quis. Est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque. Pharetra diam sit amet nisl suscipit adipiscing bibendum.
+
+\newpage
+	\section{Lists}
+	\subsection{This is an example of an unordered (bulleted) list:}
+		\begin{itemize}
+			\item dog
+			\item cat
+			\item bird
+			\item wale
+			\item spider
+		\end{itemize}
+
+	\subsection{This is an example of an ordered (numbered) list:}
+	\begin{enumerate}
+		\item purple
+		\item blue
+		\item green
+		\item yellow
+		\item orange
+	\end{enumerate}
+
+	\section{Text}
+	\subsection{This is 2 paragraphs of text:}
+Eget duis at tellus at urna condimentum mattis pellentesque id. Quam viverra orci sagittis eu volutpat odio facilisis mauris. Scelerisque purus semper eget duis at. Nisl tincidunt eget nullam non nisi est sit amet. Tortor consequat id porta nibh venenatis. Ipsum nunc aliquet bibendum enim facilisis. Quis ipsum suspendisse ultrices gravida dictum fusce. Ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Risus sed vulputate odio ut enim. Vitae justo eget magna fermentum iaculis. Sed vulputate mi sit amet mauris commodo quis imperdiet. Odio morbi quis commodo odio aenean sed adipiscing diam. Ipsum dolor sit amet consectetur. Maecenas volutpat blandit aliquam etiam erat velit scelerisque. Felis imperdiet proin fermentum leo vel orci. Gravida cum sociis natoque penatibus et. Ut diam quam nulla porttitor massa id neque. Adipiscing bibendum est ultricies integer quis auctor elit.
+
+Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Amet justo donec enim diam vulputate ut pharetra sit. Ipsum a arcu cursus vitae. Fames ac turpis egestas integer. Ut tristique et egestas quis ipsum suspendisse ultrices. At imperdiet dui accumsan sit amet nulla facilisi morbi tempus. Dui faucibus in ornare quam viverra orci sagittis. Lectus magna fringilla urna porttitor rhoncus dolor. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Purus sit amet luctus venenatis lectus magna fringilla.
+
+\newpage
+
+	\subsection{Formatting}
+		\subsubsection{Bold}
+		This is an example of \textbf{bolded font}.
+		\subsubsection{Italics}
+		This is an example of \textit{italicized font}.
+
+\section{Math}
+	\subsection{Formulas}
+		\subsubsection{Inline equation}
+		This is a sentance containing $x^2 + y^2 = z^2$. Yay triangles!
+		\subsubsection{Line Equation}
+		\begin{equation}
+			f(x) = \frac{1}{x} * \frac{a}{bc}
+		\end{equation}
+		\subsubsection{Aligned equations}
+			\begin{align}
+				f(x) =& x^2 \\
+				g(x) =& \frac{1}{x} \\
+				z(x) =& \int_{a}^{b} \frac{1}{3} x^3 
+			\end{align}
+
+\newpage
+
+\section{Code Examples}
+	\subsection{Code Block}
+\begin{lstlisting}[language=bash,upquote=true]
+function traverse {
+  # $1 is root directory
+  cd $1
+  echo "Looking in `pwd`"
+  for entry in `ls -A` 
+  do
+    if [ -d "${entry}" ]; then
+      echo "Entering dir ${entry}"
+      traverse $entry
+    elif [ -f $entry ]; then
+      echo "File: `pwd`/$entry"
+      if [ "$entry" == "$fileName" ]; then
+        echo "COUNT THIS"
+        awk '{print $1 " " $2}' $entry
+        NUM=`awk -v pat="$measurment" '$1~pat{print $2}' $entry`
+        let "measurmentCOUNT=measurmentCOUNT+NUM"
+       fi    
+    fi
+  done
+  cd ..
+}
+		\end{lstlisting}
+
+\subsection{Psuedocode Algorithm}	
+
+\begin{algorithmic}
+\Function{towersOfHanoi}{disk,start,end,spare}
+	\If{disk == 1}
+		\State move disk from start to end
+	\Else
+		\State towersOfHanoi(disk-1,start,spare,end)
+		\State move disk from start to end
+		\State towersOfHanoi(disk-1,spare,end,start)
+	\EndIf
+\EndFunction
+\end{algorithmic}
+
+\end{document}

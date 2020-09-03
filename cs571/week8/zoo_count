@@ -1,0 +1,130 @@
+#!/bin/bash
+
+#Will Luttmann - cs571 - week8
+
+#default parameters
+startDirectory=`pwd`
+fileName=".zoo_num"
+measurmentCOUNT=0
+
+
+#check parameters
+
+if [ $# -eq 0 ]; then
+	echo "Usage: ./zoo_count [-f filename] [start_directory] measurement"
+	exit 1
+fi
+
+if [ $# -ge 5 ]; then
+	echo "Too many parameters..."
+	echo "Usage: ./zoo_count [-f filename] [start_directory] measurement"
+	exit 2
+fi
+
+if [ $# -eq 4 ]; then
+	if [ $1 == "-f" ]; then
+		fileName=$2
+		startDirectory=$3
+		measurment=$4
+	fi
+	if [ $2 == "-f" ]; then
+		startDirectory=$1
+		fileName=$3
+		measurment=$4
+	fi
+	if [ $1 != "-f" ] && [ $2 != "-f" ]; then
+		echo "Incorrect parameter entry..."
+		echo "Usage: ./zoo_count [-f filename] [start_directory] measurement"
+		exit 4
+	fi
+fi
+
+if [ $# -eq 3 ]; then
+	if [ $1 != "-f" ]; then
+		echo "Incorrect parameter entry..."
+		echo "Usage: ./zoo_count [-f filename] [start_directory] measurement"
+		exit 3
+	else
+		fileName=$2
+		measurment=$3
+	fi
+fi
+
+if [ $# -eq 2 ]; then
+	startDirectory=$1
+	measurment=$2
+fi
+
+if [ $# -eq 1 ]; then
+       measurment=$1
+fi       
+
+########test variable#############
+#echo "fileName = $fileName"
+#echo "startDirectory = $startDirectory"
+#echo "measurment = $measurment"
+###################################
+
+#test if variables are valid
+
+if [ "${measurment}" != "bear" ] && [ "${measurment}" != "dromedary" ] && [ "${measurment}" != "aardvark" ] && [ "${measurment}" != "genet" ] && [ "${measurment}" != "lemur" ]; then
+	echo "Incorrect parameter entry..."
+	echo "Usage: ./zoo_count [-f filename] [start_directory] measurement"
+	echo "Valid measurements are bear, dromedary, aardvark, genet, lemur"
+	exit 5
+fi
+
+
+if [ ! -d "$startDirectory" ]; then
+	echo "$startDirectory is not a valid directory..."
+	exit 6
+fi
+
+
+cd $startDirectory 
+
+
+if [ $? -ne 0 ]; then
+	echo "Error: Cannot access '$startDirectory/'..."
+	echo "Change permissions or try another folder..."
+	exit 7
+fi
+
+cd ~-
+
+#recursive function to traverse directories
+#if directory is found, enter it and list all files
+#if entry = fileName, read it
+#count only the measurement that is passed to initial script
+
+function traverse {
+# $1 is root directory
+cd $1 || { echo "Error: Cannot access '$1/'..."; echo "Change permissions or try another folder that does not contain $1/..." ; exit 7; }
+#echo "Looking in `pwd`"
+
+for entry in `ls -A` 
+do
+        if [ -d "${entry}" ]; then
+		traverse $entry
+	fi
+        if [ -f $entry ]; then
+                #echo "File: `pwd`/$entry"
+	   	if [ "$entry" == "$fileName" ]; then
+			#echo "COUNT THIS"
+			#awk '{print $1 " " $2}' $entry
+			NUM=`awk -v pat="$measurment" '$1~pat{print $2}' $entry`
+			let "measurmentCOUNT=measurmentCOUNT+NUM"
+		fi	
+	fi
+done
+
+cd ..
+
+}
+
+
+traverse $startDirectory
+
+echo $measurment $measurmentCOUNT
+
+exit 0

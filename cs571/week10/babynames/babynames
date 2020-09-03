@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+
+import sys
+import subprocess
+import csv
+
+#argument checks
+if len(sys.argv) <= 1:
+    print("Analyze Scottish Baby Names.")
+    print("Usage: babynames name")
+    sys.exit(1)
+
+if len(sys.argv) >= 3:
+    print("Error: too many aguments.")
+    print("Usage: babynames name")
+    sys.exit(2)
+
+#save args to variables
+inputstr = sys.argv[1]
+inputName = sys.argv[1].lower()
+
+#download the csv if it does not exist in cwd
+if subprocess.call(["test","-f","names.csv"]):
+	subprocess.call(["curl","-s","--output","names.csv","https://www.nrscotland.gov.uk/files//statistics/babies-names/2017/babies-first-names-17-10-17.csv"])
+
+
+#create list from csv
+data = []
+
+with open("names.csv","r", encoding="latin-1") as f:
+	reader = csv.reader(f)
+	for row in reader:
+		data.append(row)
+
+#delete the csv, were done with it
+subprocess.call(["rm","names.csv"])
+
+
+#create a tuple list, delete garbage rows
+nameCount = []
+
+for row in data:
+	nameCount.append(tuple([row[2].lower(),row[3]]))	
+
+del nameCount[0]
+del nameCount[len(nameCount)-1]
+del nameCount[len(nameCount)-1]
+
+#create a dictionary, summing the values with the same key
+nameDict = {}
+
+for key,value in nameCount:
+	if key in nameDict:
+		nameDict[key] += int(value)
+	else:
+		nameDict[key] = int(value)
+
+#swap key/value to match what is graded on, save as list
+nameList = [(v,k) for k,v in nameDict.items()]
+
+#sort list by (negative) count, then alphabetically for tie breaker
+nameListSorted = sorted(nameList,key=lambda x: (-x[0],x[1]))
+
+#add rank to sorted list
+sortedRankings = [] 
+rank = 1
+
+for i in nameListSorted:
+	sortedRankings.append(tuple([rank,i[0],i[1]]))
+	rank += 1
+
+
+#if the name exists in the final sorted list, print out its info
+#otherwise print that it was not there and not ranked
+if (any(inputName in i for i in sortedRankings)):
+	for i in sortedRankings:
+		if i[2] == inputName:
+			#print(i[0],i[1],i[2])
+			if i[1] == 1:
+				print(inputstr + " was given to " + str(i[1]) + " child.")
+				print(inputstr + " is ranked #" + str(i[0]) + " in popularity.")
+			else:
+				print(inputstr + " was given to " + str(i[1]) + " children.")
+				print(inputstr + " is ranked #" + str(i[0]) + " in popularity.")
+
+else:
+	print(inputstr + " was given to 0 children.")
+	print(inputstr + " has never been ranked.")		
+
+sys.exit(0)

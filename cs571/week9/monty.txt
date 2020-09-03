@@ -1,0 +1,13 @@
+If I was on the game show, it would be better to switch after the first door is revealed.
+
+Before Monty opens a door, my chances are 1/3 for each door. 
+If I guess correctly, say door 1, Monty can open either door 2 or door 3 to reveal a goat (1/2).
+If I guess incorrectly, Monty MUST open a door that is not the car which means the car is
+behind the door I will switch to (1).
+
+So staying results in: (1/3) * (1/2) = (1/6) chances to win.
+
+Switching results in: (1/3) * (1) = (1/3) chances to win.
+
+Thus, I am more likely to win when switching my first guess
+based on the rules of the game. 
